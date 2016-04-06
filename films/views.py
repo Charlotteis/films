@@ -1,12 +1,11 @@
 from django.shortcuts import render
+from films.models import Film
 
 
 def index(request):
-    number = 2
-    name = 'Charlotte spencer'
+    films = Film.objects.all().order_by('rating').reverse()
     return render(request, 'index.html', {
-        'number': number,
-        'name': name
+        'films': films,
     })
 
 
