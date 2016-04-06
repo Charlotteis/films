@@ -1,0 +1,10 @@
+{% extends 'layouts/base.html' %}
+{% block title %}{{ film.name }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h1>{{ film.name }}</h1>
+  <p>Rating: {{ film.rating }} star{{ film.rating|pluralize }}</p>
+  <a href='{% url "edit_film" slug=film.slug %}'>Edit me!</a>
+{% endblock %}
+
+{% block footer %}{% endblock %}

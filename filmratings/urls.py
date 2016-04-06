@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^about/$', views.about, name='about'),
     url(r'^contact/$', views.contact, name='contact'),
+    url(r'^films/(?P<slug>[-\w]+)/$', views.film_detail, name='film_detail'),
+    url(r'^films/(?P<slug>[-\w]+)/edit/$', views.edit_film, name='edit_film'),
     url(r'^admin/', include(admin.site.urls)),
 ]
