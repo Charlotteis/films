@@ -21,6 +21,12 @@
         <li><a href='{% url "index" %}'>Home</a></li>
         <li><a href='{% url "about" %}'>About</a></li>
         <li><a href='{% url "contact" %}'>Contact</a></li>
+        {% if user.is_authenticated %}
+          <li><a href='{% url "auth_logout" %}'>Log out</a></li>
+        {% else %}
+          <li><a href='{% url "auth_login" %}'>Log in</a></li>
+          <li><a href='{% url "registration_register" %}'>Register</a></li>
+        {% endif %}
       </ul>
     </nav>
   </header>
