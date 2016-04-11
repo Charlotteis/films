@@ -71,3 +71,16 @@ def about(request):
 
 def contact(request):
     return render(request, 'contact.html')
+
+
+def browse_by_name(request, initial=None):
+    if initial:
+        films = Film.objects.filter(name__istartswith=initial)
+        films = films.order_by('name')
+    else:
+        films = Film.objects.all().order_by('name')
+
+    return render(request, 'search/search.html', {
+        'films': films,
+        'initial': initial,
+    })

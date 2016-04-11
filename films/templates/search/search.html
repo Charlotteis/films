@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Browse - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h1>Browse Films{% if initial %} Starting with '{{ initial|title }}'{% endif %}</h1>
+
+  {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
+    <a href='{% url "browse_by_name" initial=letter %}'
+      {% if initial == letter %}class='active'{% endif %}>
+      {{ letter|upper }}
+    </a>
+  {% endfor %}
+
+  {% for film in films %}
+    <ul>
+      <li>
+        <a href='{% url "film_detail" slug=film.slug %}'>{{ film.name }}</a>
+      </li>
+    </ul>
+  {% empty %}
+    <p>sorry, no results!</p>
+  {% endfor %}
+{% endblock %}
+
+{% block footer %}{% endblock %}

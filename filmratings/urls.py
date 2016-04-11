@@ -12,7 +12,10 @@ Class-based views
 Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.contrib import admin
 from django.conf.urls import include, url
+from django.views.generic import RedirectView
+
 from django.contrib.auth.views import (
     password_reset,
     password_reset_done,
@@ -21,7 +24,6 @@ from django.contrib.auth.views import (
     password_change,
     password_change_done,
 )
-from django.contrib import admin
 
 from films import views
 from films.backends import MyRegistrationView
@@ -30,8 +32,18 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^about/$', views.about, name='about'),
     url(r'^contact/$', views.contact, name='contact'),
+
+    url(r'^films/$',
+        RedirectView.as_view(pattern_name='browse', permanent=True)),
     url(r'^films/(?P<slug>[-\w]+)/$', views.film_detail, name='film_detail'),
     url(r'^films/(?P<slug>[-\w]+)/edit/$', views.edit_film, name='edit_film'),
+
+    url(r'^browse/$',
+        RedirectView.as_view(pattern_name='browse', permanent=True)),
+    url(r'^browse/name/$', views.browse_by_name, name='browse'),
+    url(r'^browse/name/(?P<initial>[-\w]+)/$', views.browse_by_name,
+        name='browse_by_name'),
+
     url(r'^accounts/password/reset/$', password_reset, {
         'template_name': 'registration/password_reset_form.html'
     }, name='password_reset'),
