@@ -22,6 +22,7 @@ from django.contrib.auth.views import (
 from django.contrib import admin
 
 from films import views
+from films.backends import MyRegistrationView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -42,6 +43,10 @@ urlpatterns = [
     url(r'^/accounts/password/done/$', password_reset_complete, {
         'template_name': 'registration/password_reset_complete.html'
     }, name='password_reset_complete'),
+    url(r'^accounts/register/$', MyRegistrationView.as_view(),
+        name='registration_register'),
+    url(r'^accounts/create_film/$', views.create_film,
+        name='registration_create_film'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
